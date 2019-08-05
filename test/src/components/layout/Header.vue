@@ -1,11 +1,22 @@
 <template>
   <header>
-    <h1>TodoList</h1>
+    <h1>{{ headerTitle }}</h1>
   </header>
 </template>
 
 <script>
-
+  export default {
+    name: "Header",
+    props: {
+      headerTitle: String
+    },
+    data() {
+      return {
+        title: "this is a title",
+        message: "this is a message"
+      }
+    }
+  }
 </script>
 
 <style scoped>

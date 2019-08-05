@@ -1,20 +1,34 @@
 <template>
   <div id="app">
-    <Header/>
+    <Header headerTitle='Todo List'/>
     <AddTodo v-on:add-todo="addTodo"/>
     <Todos v-bind:todos="todos" v-on:del-todo="deleteTodo"/>
+    <br/>
+    <Header headerTitle='Todo List Using JsonPlaceHolder'/>
+    <AddTodoApi v-on:add-todo-json="addTodoJSON"/>
+    <TodosApi v-bind:todosJSON="todosJSON" v-on:del-todo-json="deleteTodoJSON"/>
   </div>
 </template>
 
 <script>
-import Todos from "./components/Todos.vue";
 import Header from "./components/layout/Header.vue";
+import axios from "axios";
+/**
+ * Basic implementation
+ */
+import Todos from "./components/Todos.vue";
 import AddTodo from "./components/AddTodo.vue";
+/**
+ * New imports for getting data using API
+ * JSON Place Holder
+ */
+import TodosApi from "./components/JsonPlaceHolder/TodosApi.vue";
+import AddTodoApi from "./components/JsonPlaceHolder/AddTodoApi.vue";
 
 export default {
   name: 'app',
   components: {
-    Todos, Header, AddTodo
+    Todos, Header, AddTodo, TodosApi, AddTodoApi
   },
   data() {
     return {
@@ -39,7 +53,8 @@ export default {
           title: "Todo Four",
           completed: false
         }
-      ]
+      ],
+      todosJSON : []
     }
   },
   methods: {
@@ -48,7 +63,19 @@ export default {
     },
     addTodo(newTodo) {
       this.todos = [...this.todos, newTodo];
+    },
+    deleteTodoJSON(id) {
+      this.todosJSON = this.todosJSON.filter(todo => todo.id !== id);
+    },
+    addTodoJSON(newTodo) {
+      this.todosJSON = [...this.todosJSON, newTodo];
     }
+  },
+  created() {
+    axios.get("https://jsonplaceholder.typicode.com/todos?_limit=10")
+    .then(res => this.todosJSON = res.data)
+    .catch(err => console.log(err));
+    console.log(this.todosJSON.length);
   }
 }
 </script>
