@@ -68,7 +68,13 @@ export default {
       this.todosJSON = this.todosJSON.filter(todo => todo.id !== id);
     },
     addTodoJSON(newTodo) {
-      this.todosJSON = [...this.todosJSON, newTodo];
+      /* Destructuring */
+      const { title, completed } = newTodo;
+      axios.post("https://jsonplaceholder.typicode.com/todos", {
+        title, completed
+      })
+      .then(res => this.todosJSON = [...this.todosJSON, res.data])
+      .catch(err => console.log(err));
     }
   },
   created() {
