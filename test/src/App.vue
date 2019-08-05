@@ -65,7 +65,9 @@ export default {
       this.todos = [...this.todos, newTodo];
     },
     deleteTodoJSON(id) {
-      this.todosJSON = this.todosJSON.filter(todo => todo.id !== id);
+      axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+      .then(res => this.todosJSON = this.todosJSON.filter(todo => todo.id !== id))
+      .catch(err => console.log(err));
     },
     addTodoJSON(newTodo) {
       /* Destructuring */
@@ -81,7 +83,6 @@ export default {
     axios.get("https://jsonplaceholder.typicode.com/todos?_limit=10")
     .then(res => this.todosJSON = res.data)
     .catch(err => console.log(err));
-    console.log(this.todosJSON.length);
   }
 }
 </script>
