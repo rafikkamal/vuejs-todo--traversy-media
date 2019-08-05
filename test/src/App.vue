@@ -28,6 +28,11 @@ export default {
         {
           id: 3,
           title: "Todo Three",
+          completed: true
+        },
+        {
+          id: 4,
+          title: "Todo Four",
           completed: false
         }
       ]
