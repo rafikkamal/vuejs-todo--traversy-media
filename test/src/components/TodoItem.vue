@@ -3,6 +3,7 @@
     <p class="todo-item" v-bind:class="{'is-complete':todo.completed}">
       <input type="checkbox" v-model="todo.completed" v-on:input="markComplete">
       {{todo.title}}
+      <button class="del" @click="$emit('del-todo', todo.id)">x</button>
     </p>
   </div>
 </template>
@@ -30,7 +31,7 @@
     background: #ff0000;
     color: #ffffff;
     border: none;
-    padding: 5px 9px;
+    padding: 3px 9px 5px 8px;
     border-radius: 50%;
     cursor: pointer;
     float: right;
