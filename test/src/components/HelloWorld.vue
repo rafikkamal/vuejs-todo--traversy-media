@@ -55,4 +55,8 @@ li {
 a {
   color: #42b983;
 }
+div.hello {
+  text-align: center;
+  margin-top: 20px;
+}
 </style>
